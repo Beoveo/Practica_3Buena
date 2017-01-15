@@ -23,7 +23,7 @@ public class Compiler {
 	 }
 	 
 	 //throws
-	 public void addByteCode(ByteCode b) {bcProgram.insertarByteCode(b);}
+	 public void addByteCode(ByteCode b)throws ArrayException {bcProgram.insertarByteCode(b);}
 	 
 	 
 	 public int getIndex(String varName) {

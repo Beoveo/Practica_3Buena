@@ -1,6 +1,8 @@
 package instruction;
 
 import bytecodes.Store;
+import exception.ArrayException;
+import exception.LexicalAnalisisException;
 import analisis.LexicalParser;
 import analisis.Term;
 import analisis.TermParser;
@@ -24,16 +26,18 @@ public class CompoundAssignment implements Instruction {
 	 }
 
 	@Override
-	 public Instruction lexParse(String[] words, LexicalParser lexParser){
-			 if (words.length != 5) return null;
+	 public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalisisException{
+			 if (words.length != 5)return null;
 			 else {
 				Term term = TermParser.parse(words[0]);
-				if(term == null || words[1] != "=") return null;
+				if(term == null || words[1].equalsIgnoreCase("="))throw new LexicalAnalisisException("Error: asignacion incorrecta.");
 				else{ 
 					Term t1 = TermParser.parse(words[2]);
 					Term t2 = TermParser.parse(words[4]);
-					if(t1 == null || t2 == null || words[3].equalsIgnoreCase("+") || words[3].equalsIgnoreCase("-") || words[3].equalsIgnoreCase("*") || words[3].equalsIgnoreCase("/") ) return null;
-					else {
+					if(t1 == null || t2 == null || words[3].equalsIgnoreCase("+") || words[3].equalsIgnoreCase("-") || words[3].equalsIgnoreCase("*") || words[3].equalsIgnoreCase("/") ){
+						throw new LexicalAnalisisException("Error: termino/s o operando incorrecto.");
+					}
+					else{
 						lexParser.increaseProgramCounter();
 						return new CompoundAssignment(words[0], t1, words[3], t2);
 					 } 
@@ -43,7 +47,7 @@ public class CompoundAssignment implements Instruction {
 	 
 
 	 @Override
-	 public void compile(Compiler compiler){ 
+	 public void compile(Compiler compiler)throws ArrayException{ 
 		 
 		 compiler.addByteCode(this.t1.compile(compiler));
 		 compiler.addByteCode(this.t2.compile(compiler));

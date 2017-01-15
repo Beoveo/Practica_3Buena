@@ -2,6 +2,7 @@ package program;
 
 
 import instruction.Instruction;
+import exception.ArrayException;
 
 public class ParsedProgram {
 	private static final int MAX_INSTR = 100;
@@ -17,9 +18,12 @@ public class ParsedProgram {
 	 * Añade una instruccion al array de instrucciones si la pos esta vacia y si no ha llegado al maximo del array
 	 * @param instr: La instruccion a insertar.
 	 */
-	public void addInstruction(Instruction instr){
-		pProgram[this.numInstrParsed] = instr;
-		this.numInstrParsed++;	
+	public void addInstruction(Instruction instr) throws ArrayException{
+		if(pProgram[this.numInstrParsed] != null || this.numInstrParsed == ParsedProgram.MAX_INSTR - 1) throw new ArrayException("Error: Ha ocupado todas las posiciones del Parsed Program");
+		else{
+			pProgram[this.numInstrParsed] = instr;
+			this.numInstrParsed++;
+		} 
 	}
 	
 	/**

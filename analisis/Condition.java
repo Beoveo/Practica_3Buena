@@ -32,7 +32,7 @@ public abstract class Condition {
 	 }
 	
 	 protected abstract Condition parseOp(Term t1, String op, Term t2, LexicalParser lexParser);
-	 protected abstract ConditionalJumps compiler(Compiler compiler);
+	 protected abstract ConditionalJumps compiler(Compiler compiler) throws ArrayException;
 	 
 	 public void setJump (int jump){ this.condition.setJump(jump); }
 	

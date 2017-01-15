@@ -1,5 +1,8 @@
 package conditionals;
 
+import conditionals.ConditionalJumps;
+import conditionals.Ifeq;
+import exception.ArrayException;
 import generate_bc.Compiler;
 import analisis.Condition;
 import analisis.LexicalParser;
@@ -23,7 +26,7 @@ public class Equal extends Condition {
 	}
 	
 	@Override
-	protected ConditionalJumps compiler(Compiler compiler) {
+	protected ConditionalJumps compiler(Compiler compiler) throws ArrayException  {
 		compiler.addByteCode(new Ifeq());
 		return new Ifeq();
 	}

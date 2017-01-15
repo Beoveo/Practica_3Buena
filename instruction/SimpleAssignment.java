@@ -8,6 +8,7 @@ import analisis.LexicalParser;
 import analisis.Term;
 import analisis.TermParser;
 import generate_bc.Compiler;
+import exception.LexicalAnalisisException;
 
 
 public class SimpleAssignment implements Instruction{
@@ -22,14 +23,14 @@ public class SimpleAssignment implements Instruction{
 
 	
 
-	public Instruction lexParse(String[] words, LexicalParser lexParser){
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalisisException{
 		if (words.length != 3) return null;
 		 else {
 			Term term = TermParser.parse(words[0]);
-			if(term == null || words[1].equalsIgnoreCase("=")) return null;
+			if(term == null || !words[1].equalsIgnoreCase("=")) throw new LexicalAnalisisException("Error: asignacion incorrecta.");
 			else{ 
 				 Term rhs = TermParser.parse(words[2]);
-				 if(rhs == null) return null;
+				 if(rhs == null) throw new LexicalAnalisisException("Error: variable o numero incorrecto.");
 				 else {
 					 lexParser.increaseProgramCounter();
 					 return new SimpleAssignment(words[0], rhs);

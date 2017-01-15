@@ -1,8 +1,8 @@
 package bytecodes;
 
 import commands.Command;
+import exception.ArrayException;
 import paquete.Engine;
-
 /**
  * CLASE ADD_BYTECODE_PROGRAM:
  * Clase que hereda los metodos de command, en la cual se parsea la linea introducida por teclado y contiene el metodo 
@@ -13,7 +13,7 @@ public class AddByteCodeProgram implements Command {
 	 * Metodo que ejecuta el comando.
 	 */
 	@Override
-	public void execute(Engine engine) {
+	public void execute(Engine engine) throws ArrayException{
 		engine.readByteCodeProgram();
 	}
 	

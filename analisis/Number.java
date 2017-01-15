@@ -2,6 +2,7 @@ package analisis;
 
 import bytecodes.ByteCode;
 import bytecodes.Push;
+import exception.ArrayException;
 import generate_bc.Compiler;
 
 public class Number implements Term {
@@ -20,7 +21,7 @@ public class Number implements Term {
 		  }
 	 }
 
-	public ByteCode compile(Compiler compiler) {
+	public ByteCode compile(Compiler compiler) throws ArrayException {
 		 compiler.addByteCode(new Push(this.number));
 		 return new Push(this.number);
 	}

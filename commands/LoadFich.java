@@ -1,6 +1,7 @@
 package commands;
 
 import java.io.IOException;
+import exception.ArrayException;
 
 import paquete.Engine;
 
@@ -12,7 +13,7 @@ public class LoadFich implements Command {
 	}
 	
 	@Override
-	public void execute(Engine engine) throws IOException {
+	public void execute(Engine engine) throws IOException, ArrayException {
 		engine.LoadFichero(fich);
 	}
 

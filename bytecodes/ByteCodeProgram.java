@@ -1,5 +1,5 @@
 package bytecodes;
-
+import exception.ArrayException;
 /**
  * 
  * CLASS BYTECODE_PROGRAM:
@@ -48,14 +48,12 @@ public class ByteCodeProgram {
 	 * false ; si no hay espacio o si no hay bytecode.
 	 */
 	//exception array
-	public boolean insertarByteCode(ByteCode instr){  
-		boolean lleno = true;
-		if(program[this.numBC] == null && this.numBC < ByteCodeProgram.MAX_INSTR){
-			lleno = false;
+	public void insertarByteCode(ByteCode instr) throws ArrayException{  
+		if(program[this.numBC] != null || this.numBC == ByteCodeProgram.MAX_INSTR - 1) throw new ArrayException("Error: Bytecode Program lleno");
+		else{
 			program[this.numBC] = instr;
 			this.numBC++;
 		} 
-		return lleno;
 	}
 	
 	/** 
@@ -64,8 +62,9 @@ public class ByteCodeProgram {
 	 * @param bc ; bytecode que se añade en dicha posicion.
 	 */
 	
-	public void replace(int replace, ByteCode bc){  //Reemplazamos el bytecode el la posicion que se deese.
-		this.program[replace] = bc;
+	public void replace(int replace, ByteCode bc) throws ArrayException{
+		if(replace > this.numBC) throw new ArrayException ("Error: Posicion a reemplazar incorrecta");
+		else this.program[replace] = bc;
 	}
 	
 	/** 

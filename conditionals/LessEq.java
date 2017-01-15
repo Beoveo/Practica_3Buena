@@ -1,6 +1,9 @@
 package conditionals;
 
 import generate_bc.Compiler;
+import conditionals.ConditionalJumps;
+import conditionals.IfLeq;
+import exception.ArrayException;
 import analisis.Condition;
 import analisis.LexicalParser;
 import analisis.Term;
@@ -23,7 +26,7 @@ public class LessEq extends Condition {
 	}
 	
 	@Override
-	protected ConditionalJumps compiler(Compiler compiler) {
+	protected ConditionalJumps compiler(Compiler compiler)throws ArrayException {
 		compiler.addByteCode(new IfLeq());
 		return new IfLeq();
 	}

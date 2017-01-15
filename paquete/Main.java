@@ -1,6 +1,7 @@
 package paquete;
 
-import java.io.IOException;
+
+import java.io.FileNotFoundException;
 
 import exception.ArrayException;
 import exception.BadFormatByteCodeException;
@@ -17,7 +18,7 @@ import exception.StackException;
  *Crea un nuevo objeto engine y llama al metodo start.
  */
 public class Main {
-	public static void main(String args[]) throws ExceptionDivisionByZero, ArrayException, IOException, LexicalAnalisisException, BadFormatByteCodeException{
+	public static void main(String args[]) throws ExceptionDivisionByZero, ArrayException, LexicalAnalisisException, BadFormatByteCodeException, FileNotFoundException{
 	 Engine engine = new Engine();
 	 try{
 		 engine.start(); 

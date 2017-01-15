@@ -1,7 +1,9 @@
 package paquete;
 
-import java.io.FileReader;
-import java.io.IOException;
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import program.ParsedProgram;
@@ -32,7 +34,8 @@ import generate_bc.Compiler;
 		private ByteCodeProgram bcProgram;
 		private ByteCode bc;
 		private boolean end;
-		private static Scanner in;
+		private static Scanner in = new Scanner(System.in);
+		private static Scanner sc;
 		private CPU cpu;
 		private Command comando = null;
 		
@@ -46,14 +49,15 @@ import generate_bc.Compiler;
 			this.bcProgram = new ByteCodeProgram();
 		}
 		
-		public void LoadFichero(String archivo) throws IOException, ArrayException{
+		public void LoadFichero(String archivo) throws ArrayException, FileNotFoundException{
 			String line;
-			FileReader fr = new FileReader(archivo);
-			in = new Scanner(fr);
-			line = in.nextLine();
+			File fr = new File(archivo);
+			sc = new Scanner(fr);
+			line = sc.nextLine();
 			while(line.equalsIgnoreCase("END")){
 				this.sProgram.addSourceProgram(line);
 			}
+			sc.close();
 		}
 		
 		/**
@@ -61,7 +65,7 @@ import generate_bc.Compiler;
 		 *  y hasta que se introduzca por teclado la palabra END. 
 		 * @return Devuelve un nuevo objeto de la CPU con ese programa de bytecodes.
 		 */
-		public boolean readByteCodeProgram()throws ArrayException{
+		public void readByteCodeProgram()throws ArrayException{
 			String line = " ";	
 			while(!line.equalsIgnoreCase("END")){
 				line = in.nextLine();
@@ -86,7 +90,7 @@ import generate_bc.Compiler;
 		 * @throws BadFormatByteCodeException 
 		 * 
 		 */
-		public void start() throws ExceptionDivisionByZero, StackException, ArrayException, IOException, LexicalAnalisisException, BadFormatByteCodeException{
+		public void start() throws ExceptionDivisionByZero, FileNotFoundException, StackException, ArrayException, LexicalAnalisisException, BadFormatByteCodeException{
 			this.end = false;
 			String line = " ";
 				while(!end){
@@ -162,7 +166,7 @@ import generate_bc.Compiler;
 		 * @param replace Es la pos en la cual se encuentra la instruccion a reemplazar.
 		 * @return Devuelve si se ha podido realizar el cambio.
 		 */
-		public boolean replace(int replace) throws BadFormatByteCodeException, throws ArrayException{
+		public boolean replace(int replace) throws BadFormatByteCodeException, ArrayException{
 			String line;
 			boolean replaceOK = false;
 			if (cpu.getNumBC() > 0 && cpu.getByteCode(replace) != null){

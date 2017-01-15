@@ -41,7 +41,7 @@ public class Replace implements Command {
 	 */
 	@Override
 	public Command parse(String[] s) {
-		if (s.length!=2) return null;
+		if (s.length!=2 || !s[0].equals("REPLACE")) return null;
 	else return parseAux(s[0], s[1]);
 	}
 	

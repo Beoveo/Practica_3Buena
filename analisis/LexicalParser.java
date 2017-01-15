@@ -36,7 +36,7 @@ public class LexicalParser {
 	 */
 	 
 	public void lexicalParser(ParsedProgram pProgram, String stopKey)
-	throws LexicalAnalisisException {
+	throws LexicalAnalisisException, ArrayException {
 		String []line;
 		boolean stop = false;
 		while (this.programCounter < sProgram.getNumeroInstrucciones() && !stop){

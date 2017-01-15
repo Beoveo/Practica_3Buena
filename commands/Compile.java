@@ -1,7 +1,6 @@
 package commands;
 
 
-import java.io.IOException;
 
 import exception.ArrayException;
 import exception.ExceptionDivisionByZero;
@@ -12,7 +11,7 @@ import paquete.Engine;
 public class Compile implements Command {
 
 	@Override
-	public void execute(Engine engine) throws LexicalAnalisisException,ArrayException, IOException, ExceptionDivisionByZero,
+	public void execute(Engine engine) throws LexicalAnalisisException,ArrayException, ExceptionDivisionByZero,
 			StackException {
 		engine.compile();
 	}

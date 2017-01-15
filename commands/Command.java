@@ -1,7 +1,8 @@
 package commands;
 
 
-import java.io.IOException;
+
+import java.io.FileNotFoundException;
 
 import exception.ArrayException;
 import exception.BadFormatByteCodeException;
@@ -18,7 +19,7 @@ import paquete.Engine;
  *
  */
 public interface Command {
-	void execute(Engine engine) throws LexicalAnalisisException, ArrayException, IOException, ExceptionDivisionByZero, StackException, BadFormatByteCodeException;
+	void execute(Engine engine) throws LexicalAnalisisException, ArrayException, ExceptionDivisionByZero, StackException, BadFormatByteCodeException, FileNotFoundException;
 	Command parse(String[] s);
 	String textHelp();	
 }

@@ -49,11 +49,11 @@ public class Memory {
 	 * @return Devuelve true si se ha asignado el valor correctamente y false si ocurre lo contrario.
 	 */
 	
-	public boolean write(int pos, int valor){
+	public void write(int pos, int valor){
 		redimensionar(pos);
 		this.memory[pos] = valor;
-			this.vacio = false;
-			return true;
+		this.vacio = false;
+			
 	}
 	
 	/**

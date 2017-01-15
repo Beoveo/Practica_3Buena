@@ -46,7 +46,7 @@ import generate_bc.Compiler;
 			this.bcProgram = new ByteCodeProgram();
 		}
 		
-		public void LoadFichero(String archivo) throws IOException{
+		public void LoadFichero(String archivo) throws IOException, ArrayException{
 			String line;
 			FileReader fr = new FileReader(archivo);
 			in = new Scanner(fr);
@@ -61,23 +61,20 @@ import generate_bc.Compiler;
 		 *  y hasta que se introduzca por teclado la palabra END. 
 		 * @return Devuelve un nuevo objeto de la CPU con ese programa de bytecodes.
 		 */
-		public boolean readByteCodeProgram(){
-			boolean lleno = false;
+		public boolean readByteCodeProgram()throws ArrayException{
 			String line = " ";	
-			while(!line.equalsIgnoreCase("END") && !lleno){
+			while(!line.equalsIgnoreCase("END")){
 				line = in.nextLine();
 				line =  line.toUpperCase();
 				if(!line.equalsIgnoreCase("END")){
 					bc = ByteCodeParser.parse(line);
 					if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
 					else{
-						lleno = bcProgram.insertarByteCode(bc);
-						if(lleno) System.out.println("Error: A alcanzado el limite de instrucciones, o la instruccion esta ocupada.");
+						bcProgram.insertarByteCode(bc);
 				}
 			}
 		}
 		cpu = new CPU(bcProgram);
-		return lleno;
 		}
 		
 		/**
@@ -165,7 +162,7 @@ import generate_bc.Compiler;
 		 * @param replace Es la pos en la cual se encuentra la instruccion a reemplazar.
 		 * @return Devuelve si se ha podido realizar el cambio.
 		 */
-		public boolean replace(int replace) throws BadFormatByteCodeException{
+		public boolean replace(int replace) throws BadFormatByteCodeException, throws ArrayException{
 			String line;
 			boolean replaceOK = false;
 			if (cpu.getNumBC() > 0 && cpu.getByteCode(replace) != null){
@@ -178,22 +175,41 @@ import generate_bc.Compiler;
 			}
 			return replaceOK;
 		}
-
+		/**
+		 * Metodo Compile que se encarga del analisis lexico de Source 
+		 * Program y su posterior generacion del bytecode.
+		 * @throws LexicalAnalisisException 
+		 * @throws ArrayException
+		 */
 
 		public void compile() throws LexicalAnalisisException, ArrayException {
-			 //try {
+			 try{
 			    this.lexicalAnalysis();
 			    this.generateByteCode();
-			// }
-			//catch ... 
+			 }
+			 catch(LexicalAnalisisException | ArrayException e){
+				 System.out.println(e.getMessage());
+			 }
 		}
+		
+		/**
+		 * Genera el bytecode mediante la compilacion del codigo.
+		 * @throws ArrayException
+		 */
 
 		private void generateByteCode() throws ArrayException{
 			Compiler comp = new Compiler();
 			comp.compile(this.parsedProgram);
 		}
+		
+		/**
+		 * Genera el Programa parseado mediante la invocacion de lexicalParser.
+		 * Además añade "END" para el marcar el final de la ejecucion.
+		 * @throws LexicalAnalisisException
+		 * @throws ArrayException
+		 */
 
-		private void lexicalAnalysis() throws LexicalAnalisisException {
+		private void lexicalAnalysis() throws LexicalAnalisisException, ArrayException {
 			LexicalParser lexicalParser;
 			lexicalParser = new LexicalParser(this.sProgram);
 			lexicalParser.lexicalParser(this.parsedProgram, "END");

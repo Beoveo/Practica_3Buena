@@ -2,6 +2,7 @@ package analisis;
 
 import bytecodes.ByteCode;
 import bytecodes.Load;
+import exception.ArrayException;
 import generate_bc.Compiler;
 
 public class Variable implements Term{
@@ -23,7 +24,7 @@ public class Variable implements Term{
 	 }
 
 	@Override
-	 public ByteCode compile(Compiler compiler){ 
+	 public ByteCode compile(Compiler compiler)throws ArrayException{ 
 		 int i = compiler.getIndex(this.varName);
 		 compiler.addByteCode(new Load(i));
 		 return new Load(i);

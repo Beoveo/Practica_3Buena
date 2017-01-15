@@ -1,6 +1,6 @@
 package paquete;
 
-
+import exception.ArrayException;
 import exception.ExceptionDivisionByZero;
 import exception.StackException;
 import bytecodes.ByteCode;
@@ -44,7 +44,7 @@ public class CPU {
 	 * @param pos: Posicion de la instruccion a reemplazar.
 	 * @param bc: ByteCode que la reemplaza.
 	 */
-	public void replaceBC(int pos, ByteCode bc){
+	public void replaceBC(int pos, ByteCode bc) throws ArrayException{
 		this.bcProgram.replace(pos, bc);
 	}
 	
@@ -187,7 +187,7 @@ public class CPU {
 	 * @return Devuelve true si el dato ha sido introducido en memoria.
 	 * @throws StackException 
 	 */
-	public boolean write(int pos) throws StackException{return memoria.write(pos, pila.load());}
+	public void write(int pos) throws StackException{memoria.write(pos, pila.load());}
 	
 	/**
 	 * Metodo que saca la cima de la pila.

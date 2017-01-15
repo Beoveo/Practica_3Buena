@@ -7,6 +7,7 @@ import analisis.Condition;
 import analisis.ConditionParser;
 import analisis.LexicalParser;
 import generate_bc.Compiler;
+import exception.LexicalAnalisisException;
 
 
 public class IfThen implements Instruction {
@@ -19,16 +20,18 @@ public class IfThen implements Instruction {
 		this.ifBody = body;
 	}
 	
-	public Instruction lexParse(String[] words, LexicalParser lexParser){
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalisisException, ArrayException{
 		 if(words.length != 4) return null;
 			else{
-				if(!words[0].equalsIgnoreCase("if")) return null;
+				if(!words[0].equalsIgnoreCase("IF")) return null;
 				else {
 					Condition cond = ConditionParser.parse(words[1], words[2], words[3], lexParser);
-					if(cond == null) return null;
+					if(cond == null) throw new LexicalAnalisisException("Error: condicion no correcta.");
 					else{
 						lexParser.increaseProgramCounter();
-						return new IfThen(cond, ifBody);
+						ParsedProgram ifbody = new ParsedProgram();
+						lexParser.lexicalParser(ifbody, "ENDIF");
+						return new IfThen(cond, ifbody);
 					}
 				}
 			}

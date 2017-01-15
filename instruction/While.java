@@ -21,20 +21,21 @@ public class While implements Instruction{
 		this.whileBody = wBody;
 	}
 	 
-	public Instruction lexParse(String[] words, LexicalParser lexParser) throws LexicalAnalisisException{
+	public Instruction lexParse(String[] words, LexicalParser lexParser) throws ArrayException, LexicalAnalisisException{
+		Condition cond2;
 		if(words.length != 4) return null;
 		else {
 			if(!words[0].equalsIgnoreCase("WHILE")) return null;
 			else {
-				Condition cond2 = ConditionParser.parse(words[1], words[2], words[3], lexParser);
+				cond2 = ConditionParser.parse(words[1], words[2], words[3], lexParser);
+				if(cond2 == null) throw new LexicalAnalisisException("Error: condicion no valida.");
+				lexParser.increaseProgramCounter();
 				ParsedProgram wBody = new ParsedProgram();
 				lexParser.lexicalParser(wBody, "ENDWHILE");
-				lexParser.increaseProgramCounter();
 				return new While(cond2, wBody);
 			}
 		}
 	 }
- 
 
 	 
 	 public void compile(Compiler compiler) throws ArrayException{

@@ -2,6 +2,7 @@ package commands;
 
 import exception.BadFormatByteCodeException;
 import paquete.Engine;
+import exception.ArrayException;
 
 /**
  * CLASE REPLACE:
@@ -20,7 +21,7 @@ public class Replace implements Command {
 	 * Metodo que ejecuta el comando.
 	 */
 	@Override
-	public void execute(Engine engine) throws BadFormatByteCodeException{
+	public void execute(Engine engine) throws BadFormatByteCodeException, ArrayException{
 		engine.replace(this.param);
 	}
 	

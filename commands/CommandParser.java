@@ -1,6 +1,6 @@
 package commands;
 
-import bytecodes.AddByteCodeProgram;
+
 
 /**
  * 
@@ -11,7 +11,7 @@ import bytecodes.AddByteCodeProgram;
 
 public class CommandParser {
 	private final static Command[] commands = {new Help(),new Quit(), new Reset(),
-		 new Replace(),new Run(),new AddByteCodeProgram(), new Compile(), new LoadFich()};
+		 new Replace(),new Run(), new Compile(), new LoadFich()};
 	// quitar addbytecode
 	
 	/**

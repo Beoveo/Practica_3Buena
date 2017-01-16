@@ -33,9 +33,10 @@ public class CPU {
 		int numBC = bcProgram.getNumBC();
 		while (this.programCounter < numBC && !error) {
 		ByteCode bc = bcProgram.getByteCode(this.programCounter);
+		bc.execute(this);
 		if (this.exeHalt){
 			error = true;
-		} else bc.execute(this);
+		}
 		}return !error;
 	}
 	

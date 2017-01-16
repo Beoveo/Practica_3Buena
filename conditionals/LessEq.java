@@ -19,10 +19,8 @@ public class LessEq extends Condition {
 	
 	@Override
 	protected Condition parseOp(Term t1, String op, Term t2, LexicalParser lexParser) {
-		if(op != "<=") return null;
-		else 
-			lexParser.increaseProgramCounter(); // No se si esto va aqui
-			return new LessEq(t1, t2);
+		if(!op.equalsIgnoreCase("<=")) return null;
+		else return new LessEq(t1, t2);
 	}
 	
 	@Override
@@ -32,5 +30,7 @@ public class LessEq extends Condition {
 	}
 	
 	public String toString(){ return this.t1 + "<=" + this.t2; }
+	protected Term getTerm1 () { return this.t1;}
+	protected Term getTerm2 () { return this.t2;}
 
 }

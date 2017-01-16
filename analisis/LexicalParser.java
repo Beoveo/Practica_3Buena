@@ -44,6 +44,7 @@ public class LexicalParser {
 		line = instr.split(" +");
 			if (instr.equalsIgnoreCase(stopKey)){
 				stop = true;
+				this.programCounter++;
 			}
 			else {
 			Instruction instruction = InstructionParser.parse(line, this);

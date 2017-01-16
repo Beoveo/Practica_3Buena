@@ -36,6 +36,6 @@ abstract public class ConditionalJumps extends ByteCodeOneParameter{
 		}
 	}
 	
-	public void setJump(int n) {n = super.param;}
+	//public void setJump(int n) {super.param = n;}
 	
 }

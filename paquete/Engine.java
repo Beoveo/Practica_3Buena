@@ -30,8 +30,8 @@ import generate_bc.Compiler;
  */
 	public class Engine {
 		private SourceProgram sProgram = new SourceProgram();
-		private ParsedProgram parsedProgram;
-		private ByteCodeProgram bcProgram;
+		private ParsedProgram parsedProgram = new ParsedProgram();
+		private ByteCodeProgram bcProgram = new ByteCodeProgram();
 		private ByteCode bc;
 		private boolean end;
 		private static Scanner in = new Scanner(System.in);
@@ -53,8 +53,8 @@ import generate_bc.Compiler;
 			String line;
 			File fr = new File(archivo);
 			sc = new Scanner(fr);
-			line = sc.nextLine();
-			while(line.equalsIgnoreCase("END")){
+			while(sc.hasNextLine()){
+				line = sc.nextLine();
 				this.sProgram.addSourceProgram(line);
 			}
 			sc.close();
@@ -65,22 +65,10 @@ import generate_bc.Compiler;
 		 *  y hasta que se introduzca por teclado la palabra END. 
 		 * @return Devuelve un nuevo objeto de la CPU con ese programa de bytecodes.
 		 */
-		public void readByteCodeProgram()throws ArrayException{
-			String line = " ";	
-			while(!line.equalsIgnoreCase("END")){
-				line = in.nextLine();
-				line =  line.toUpperCase();
-				if(!line.equalsIgnoreCase("END")){
-					bc = ByteCodeParser.parse(line);
-					if(bc == null) System.out.println("Error : Introduzca un bytecode correcto.");
-					else{
-						bcProgram.insertarByteCode(bc);
-				}
-			}
+		/*public void readByteCodeProgram()throws ArrayException{
+			cpu = new CPU(bcProgram);
 		}
-		cpu = new CPU(bcProgram);
-		}
-		
+		*/
 		/**
 		 * Metodo que lee el comando a ejecutar y si se corresponde con los disponibles se ejecuta y se muestra el programa almacenado.
 		 * Si el comando es null, vuelve a pedir un comando.
@@ -102,10 +90,8 @@ import generate_bc.Compiler;
 				else {
 					System.out.println("Comienza la ejecucion de " + comando.toString());
 					comando.execute(this);
-					if (bcProgram.getNumBC() != 0){
-						System.out.println("Programa almacenado: " + 
-								System.getProperty("line.separator") + bcProgram.toString());
-						}else System.out.println("Introduzca al menos una instruccion bytecode.");
+					System.out.println("Programa fuente almacenado: " + 
+					System.getProperty("line.separator") + sProgram.toString());
 				}
 			}
 			in.close();
@@ -202,8 +188,9 @@ import generate_bc.Compiler;
 		 */
 
 		private void generateByteCode() throws ArrayException{
-			Compiler comp = new Compiler();
+			Compiler comp = new Compiler(bcProgram);
 			comp.compile(this.parsedProgram);
+			cpu = new CPU(bcProgram);
 		}
 		
 		/**

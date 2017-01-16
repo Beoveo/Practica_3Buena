@@ -23,7 +23,6 @@ public class LoadFich implements Command {
 	public Command parse(String[] s) {
 		if (s.length!=2 || !s[0].equalsIgnoreCase("LOADFICH")) return null;
 		else{
-			s[1].toLowerCase();
 			return new LoadFich(s[1]);
 				
 		}
@@ -36,7 +35,7 @@ public class LoadFich implements Command {
 	}
 	
 	public String toString(){
-		return "LOAD" + this.fich;
+		return "LOAD " + this.fich;
 	}
 }
 

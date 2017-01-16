@@ -18,10 +18,8 @@ public class NotEqual extends Condition {
 	
 	@Override
 	protected Condition parseOp(Term t1, String op, Term t2, LexicalParser lexParser) {
-		if(op != "!=") return null;
-		else 
-			lexParser.increaseProgramCounter(); // No se si esto va aqui
-			return new NotEqual(t1, t2);
+		if(op.equalsIgnoreCase("!=")) return null;
+		else return new NotEqual();
 	}
 	
 	@Override
@@ -29,6 +27,7 @@ public class NotEqual extends Condition {
 		compiler.addByteCode(new IfNeq());
 		return new IfNeq();
 	}
-	
-	public String toString(){ return this.t1 + "!=" + this.t2; }
+	protected Term getTerm1 () { return this.t1;}
+	protected Term getTerm2 () { return this.t2;}
+	public String toString(){ return "!="; }
 }

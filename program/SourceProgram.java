@@ -29,4 +29,12 @@ public class SourceProgram {
 	public int getNumeroInstrucciones() {
 		return this.numInstruction;
 	}
+	
+	public String toString(){
+		String sc = "";
+		for(int i = 0; i < this.numInstruction; i++){
+			sc = sc + i + ":" + " " + this.sProgram[i] + System.getProperty("line.separator");
+		}
+		return sc;
+	}
 }

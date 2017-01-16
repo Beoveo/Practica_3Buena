@@ -30,11 +30,11 @@ public class CompoundAssignment implements Instruction {
 			 if (words.length != 5)return null;
 			 else {
 				Term term = TermParser.parse(words[0]);
-				if(term == null || words[1].equalsIgnoreCase("="))throw new LexicalAnalisisException("Error: asignacion incorrecta.");
+				if(term == null || !words[1].equalsIgnoreCase("="))throw new LexicalAnalisisException("Error: asignacion incorrecta.");
 				else{ 
 					Term t1 = TermParser.parse(words[2]);
 					Term t2 = TermParser.parse(words[4]);
-					if(t1 == null || t2 == null || words[3].equalsIgnoreCase("+") || words[3].equalsIgnoreCase("-") || words[3].equalsIgnoreCase("*") || words[3].equalsIgnoreCase("/") ){
+					if(t1 == null || t2 == null || (!words[3].equalsIgnoreCase("+") && !words[3].equalsIgnoreCase("-") && !words[3].equalsIgnoreCase("*") && !words[3].equalsIgnoreCase("/")) ){
 						throw new LexicalAnalisisException("Error: termino/s o operando incorrecto.");
 					}
 					else{
@@ -49,8 +49,8 @@ public class CompoundAssignment implements Instruction {
 	 @Override
 	 public void compile(Compiler compiler)throws ArrayException{ 
 		 
-		 compiler.addByteCode(this.t1.compile(compiler));
-		 compiler.addByteCode(this.t2.compile(compiler));
+		 this.t1.compile(compiler);
+		 this.t2.compile(compiler);
 		 
 		 if(this.operator.equalsIgnoreCase("+")) compiler.addByteCode(new Add());
 		 	else if(this.operator.equalsIgnoreCase("*")) compiler.addByteCode(new Mul());

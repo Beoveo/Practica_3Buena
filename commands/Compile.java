@@ -27,6 +27,10 @@ public class Compile implements Command {
 		return "COMPILE: Realiza el analisis lexico del programa." +
 				System.getProperty("line.separator");
 				}
+	
+	public String toString(){
+		return "Compile";
+	}
 }
 
 

@@ -25,7 +25,7 @@ public class Write implements Instruction {
 			if(!words[0].equalsIgnoreCase("write"))return null;
 			else {
 				varName = words[1];
-				if (varName.length() !=1) throw new LexicalAnalisisException("Error: tamaño de la variable erroneo.");
+				if (varName.length() !=1) throw new LexicalAnalisisException("Error: tamano de la variable erroneo.");
 				 else {
 					 char name = varName.charAt(0);
 					 if ('a' <= name && name <= 'z') {
